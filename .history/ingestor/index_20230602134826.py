@@ -24,7 +24,9 @@ class DataIngestor:
         self.connection.close()
 
     def parse_nmea_sentence(self, sentence):
-        ## to be implemented
+        # Implement your NMEA sentence parsing logic here
+        # Extract relevant data from the sentence and return it as a dictionary
+        # Example: {'timestamp': '123519', 'latitude': '4807.038', 'longitude': '01131.000', ...}
         pass
 
     def store_reading(self, reading):

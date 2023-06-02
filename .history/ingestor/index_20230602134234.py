@@ -4,7 +4,7 @@ import sys
 import threading
 import queue
 from datetime import datetime
-from pymongo import MongoClient
+import sqlite3
 
 class DataIngestor:
     def __init__(self, host, port, database_file):
@@ -24,13 +24,19 @@ class DataIngestor:
         self.connection.close()
 
     def parse_nmea_sentence(self, sentence):
-        ## to be implemented
+        # Implement your NMEA sentence parsing logic here
+        # Extract relevant data from the sentence and return it as a dictionary
+        # Example: {'timestamp': '123519', 'latitude': '4807.038', 'longitude': '01131.000', ...}
         pass
 
     def store_reading(self, reading):
         try:
-            self.collection.insert_one(reading)
-        except Exception as e:
+            self.cursor.execute(
+                "INSERT INTO readings (timestamp, latitude, longitude, ...) VALUES (?, ?, ?, ...)",
+                (reading['timestamp'], reading['latitude'], reading['longitude'], ...)
+            )
+            self.connection.commit()
+        except sqlite3.Error as e:
             print("Error storing reading in the database:", e)
 
     def ingest_data(self):
@@ -70,16 +76,16 @@ class DataIngestor:
         self.connection.close()
 
 if __name__ == "__main__":
-  ingestor = DataIngestor("localhost", 5000, "ship_logbook.db")
-  ingestor.start_ingestor()
+    ingestor = DataIngestor("localhost", 5000, "ship_logbook.db")
+    ingestor.start_ingestor()
 
-  # Register signal handlers for termination signals
-  def signal_handler(signal, frame):
-      print("Termination signal received. Stopping the ingestor...")
-      ingestor.stop_ingestor()
-      sys.exit(0)
+    # Register signal handlers for termination signals
+    def signal_handler(signal, frame):
+        print("Termination signal received. Stopping the ingestor...")
+        ingestor.stop_ingestor()
+        sys.exit(0)
 
-  signal.signal(signal.SIGINT, signal_handler)  # SIGINT: Ctrl+C
-  signal.signal(signal.SIGTERM, signal_handler)  # SIGTERM: Termination signal
+    signal.signal(signal.SIGINT, signal_handler)  # SIGINT: Ctrl+C
+    signal.signal(signal.SIGTERM, signal_handler)  # SIGTERM: Termination signal
 
   

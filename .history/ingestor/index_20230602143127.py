@@ -24,7 +24,7 @@ class DataIngestor:
         self.connection.close()
 
     def parse_nmea_sentence(self, sentence):
-        ## to be implemented
+        ##
         pass
 
     def store_reading(self, reading):
