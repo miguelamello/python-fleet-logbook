@@ -94,7 +94,21 @@ These examples represent just a few of the many NMEA sentence formats available.
 
 ## 3) Data Ingestor Service - Implementation
 
-The Data Ingestor Service is implemented in Python 3.11 using the following libraries:
+The Data Ingestor Service is implemented in Python 3.11 using the following libraries: `signal, socket, sys, time, threading, logging, dotenv, mongo_client, nmea`. 
+
+The service is composed of the following main tasks taht should be implemented:
+
+**3.1) VDR - Vessel Data Recorder remote access**
+
+**3.2) NMEA sentence parsing**
+
+**3.3) Database storage of sentences**
+
+**3.4) Data Ingestor Service API**
+
+## 4) Data Dashboard Service - Implementation
+
+
 
 
 
