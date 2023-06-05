@@ -1,4 +1,4 @@
-.history
-.venv
-.vscode
-.env
+*.history
+*.venv
+*.vscode
+*.env
