@@ -8,11 +8,12 @@ import threading
 import queue
 from dotenv import load_dotenv
 from pymongo.mongo_client import MongoClient
+from pynmeagps import NMEAReader
 
 # Load environment variables from .env file
 load_dotenv()
 
-class DataIngestor:
+class Ingestor:
   def __init__(self):
     self.vdr_host = os.getenv("VDR_HOST")
     self.vdr_port = int(os.getenv("VDR_PORT"))
@@ -23,6 +24,7 @@ class DataIngestor:
     self.mongo = None
     self.collection = None
     self.socket = None
+    self.ingest_thread = None
     self.stop_event = threading.Event()
     self.data_queue = queue.Queue()
 
@@ -46,14 +48,17 @@ class DataIngestor:
   def ingest_data(self):
     while not self.stop_event.is_set():
       try:
-        sentence = self.socket.recv(1024).decode().strip()
-        reading = self.parse_nmea_sentence(sentence)
-        if reading:
-            self.store_reading(reading)
+        stream = open('nmeadata.log', 'rb')
+        nmr = NMEAReader(stream, nmeaonly=True)
+        for (raw_data, parsed_data) in nmr: print(parsed_data)
+        #sentence = self.socket.recv(1024).decode().strip()
+        #reading = self.parse_nmea_sentence(sentence)
+        #if reading:
+            #self.store_reading(reading)
       except socket.error as e:
         print("Error receiving data from VDR:", e)
-        self.disconnect_from_vdr()
-        self.connect_to_vdr()
+        #self.disconnect_from_vdr()
+        #self.connect_to_vdr()
 
   def start_ingestor(self):
     print("Starting the ingestor...")
@@ -67,15 +72,15 @@ class DataIngestor:
     db = self.mongo[self.db_name]
     self.collection = db[self.db_collection]
 
-    #ingest_thread = threading.Thread(target=self.ingest_data)
-    #ingest_thread.start()
+    self.ingest_thread = threading.Thread(target=self.ingest_data)
+    self.ingest_thread.start()
 
   def stop_ingestor(self):
     print("Stopping the ingestor...")
-    #self.stop_event.set()
+    self.stop_event.set()
 
     # Wait for the ingest thread to finish
-    #ingest_thread.join()
+    self.ingest_thread.join()
 
     #self.disconnect_from_vdr()
     self.mongo.close()
