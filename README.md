@@ -104,19 +104,19 @@ In a real production ready service, we would have to implement a way to access t
 
 Here is an example of a NMEA datalog file:
 
-`
-  $GPGLL,4916.45,N,12311.12,W,225444,A,*1D<br>
-  $GPGLL,4917.60,N,12310.25,W,225445,A,*45<br>
-  $GPGLL,4918.75,N,12309.38,W,225446,A,*5A<br>
-  $GPGLL,4919.90,N,12308.51,W,225447,A,*6F<br>
-  $GPGLL,4921.05,N,12307.64,W,225448,A,*78<br>
-  $GPGLL,4922.20,N,12306.77,W,225449,A,*89<br>
-  $GPGLL,4923.35,N,12305.90,W,225450,A,*9A<br>
-  $GPGLL,4924.50,N,12305.03,W,225451,A,*AB<br>
-  $GPGLL,4925.65,N,12304.16,W,225452,A,*BC<br>
-  $GPGLL,4926.80,N,12303.29,W,225453,A,*CD<br>
+<code>
+  $GPGLL,4916.45,N,12311.12,W,225444,A,*1D
+  $GPGLL,4917.60,N,12310.25,W,225445,A,*45
+  $GPGLL,4918.75,N,12309.38,W,225446,A,*5A
+  $GPGLL,4919.90,N,12308.51,W,225447,A,*6F
+  $GPGLL,4921.05,N,12307.64,W,225448,A,*78
+  $GPGLL,4922.20,N,12306.77,W,225449,A,*89
+  $GPGLL,4923.35,N,12305.90,W,225450,A,*9A
+  $GPGLL,4924.50,N,12305.03,W,225451,A,*AB
+  $GPGLL,4925.65,N,12304.16,W,225452,A,*BC
+  $GPGLL,4926.80,N,12303.29,W,225453,A,*CD
   ...
-`
+<code>
 
 For this demonstration project we will use only `$GPGLL: Geographic Latitude and Longitude` sentences. However, in a real production ready service we would have to implement a way to parse all the NMEA sentences that the VDRs are sending.
 
@@ -124,14 +124,14 @@ For this demonstration project we will use only `$GPGLL: Geographic Latitude and
 
 The Ingestor Service should be able to parse the NMEA sentences in a better fitted format for storage in a database and for further processing. This can be achieved by using the standard Python Type called `dict` that can hold data in many formats. In our specific usecase we will use the `dict` type to hold the data in a key-value format. For example, the `$GPGLL` sentence will be parsed as follows:
 
-` 
-  {<br>
-    'source': '$GPGLL', <br>
-    'latitude': '5019.70N', <br>
-    'longitude': '12223.27W', <br>
-    'utctime': '225539'<br>
-  }<br>
-`
+<code>
+  {
+    'source': '$GPGLL', 
+    'latitude': '5019.70N', 
+    'longitude': '12223.27W', 
+    'utctime': '225539'
+  }
+<code>
 
 **3.3) Database storage of sentences**
 
