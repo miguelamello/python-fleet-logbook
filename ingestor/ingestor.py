@@ -3,6 +3,7 @@
 # the data source and storing it in the database.
 
 import time
+from datetime import datetime, timezone
 import csv
 import random
 
@@ -37,16 +38,22 @@ class Ingestor:
     }
     return data
 
+  def format_sentence(self, sentence):
+    timestamp = datetime.now().isoformat()
+    data = {
+      'timestamp': timestamp,
+      'metadata': sentence
+    }
+    return data
+
   def start(self):
-    print("Starting the ingestor...")
     while True:
       sentence = self.get_vdr_sentence()
       if sentence: 
-        print(sentence)
+        timeserie = self.format_sentence(sentence)
       time.sleep(10)  # Sleep for 10 second before collecting the next reading
 
   def stop(self):
-    print("Stopping the ingestor...")
-
+    pass
     # Close the connection to the MongoDB server
     #self.mongo.close()
