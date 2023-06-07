@@ -138,6 +138,8 @@ The Ingestor Service should be able to parse the NMEA sentences in a better fitt
 
 With this format we can easily store the data in a database and also process it in a easy way.
 
+Note: By now we are collecting NMEA sentences from a unique device only. In a real production ready service we would have to implement a way to collect data from multiple devices, and so we would have to add a `device_id` field to the `dict` type. This field would be used to identify the device that sent the data. Maybe wwe could use the serial number of the device as the `device_id`.
+
 **3.3) Database storage of sentences**
 
 The Ingestor Service should be able to store the parsed sentences in a database. For this demonstration project we will use MongoDB as the database. MongoDB is a document-oriented database that stores data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time. The document model maps to the objects in your application code, making data easy to work with. Ad hoc queries, indexing, and real time aggregation provide powerful ways to access and analyze your data. MongoDB is a distributed database at its core, so high availability, horizontal scaling, and geographic distribution are built in and easy to use.
@@ -155,7 +157,7 @@ For performance reasons we setted up a `time-series` colletion, and so before sa
   }
 }
 ```
-Now we can use all the power of MongoDB TimeSeries to query the data in a easy way.
+Now we can use all the power of MongoDB TimeSeries to query the data in a easy way. The beauty of NoSQL databases like MongoDB is that we can store data in a flexible way, without the need to define a schema in advance. This is very useful when we are dealing with data that is not well defined, as is the case of NMEA sentences. Another advantage on MongoDB is that we can store data in a JSON format, and JSON is a very popular format that is easy to understand and manipulate.
 
 **3.4) Ingestor Service API**
 

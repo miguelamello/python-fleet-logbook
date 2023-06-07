@@ -51,6 +51,10 @@ class Ingestor:
       sentence = self.get_vdr_sentence()
       if sentence: 
         timeserie = self.format_sentence(sentence)
+        if timeserie:
+          print(timeserie)
+          # Insert the timeseries into the database
+          #self.mongo.insert_one(timeserie)
       time.sleep(10)  # Sleep for 10 second before collecting the next reading
 
   def stop(self):
