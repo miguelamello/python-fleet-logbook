@@ -105,16 +105,19 @@ In a real production ready service, we would have to implement a way to access t
 Here is an example of a NMEA datalog file:
 
 ```
-  $GPGLL,4916.45,N,12311.12,W,225444,A,*1D
-  $GPGLL,4917.60,N,12310.25,W,225445,A,*45
-  $GPGLL,4918.75,N,12309.38,W,225446,A,*5A
-  $GPGLL,4919.90,N,12308.51,W,225447,A,*6F
-  $GPGLL,4921.05,N,12307.64,W,225448,A,*78
-  $GPGLL,4922.20,N,12306.77,W,225449,A,*89
-  $GPGLL,4923.35,N,12305.90,W,225450,A,*9A
-  $GPGLL,4924.50,N,12305.03,W,225451,A,*AB
-  $GPGLL,4925.65,N,12304.16,W,225452,A,*BC
-  $GPGLL,4926.80,N,12303.29,W,225453,A,*CD
+  $GPGLL,4916.45,N,12311.12,W,2023-06-06T22:54:44,A,*1D
+  $GPGLL,4917.60,N,12310.25,W,2023-06-06T22:54:45,A,*45
+  $GPGLL,4918.75,N,12309.38,W,2023-06-06T22:54:46,A,*5A
+  $GPGLL,4919.90,N,12308.51,W,2023-06-06T22:54:47,A,*6F
+  $GPGLL,4921.05,N,12307.64,W,2023-06-06T22:54:48,A,*78
+  $GPGLL,4922.20,N,12306.77,W,2023-06-06T22:54:49,A,*89
+  $GPGLL,4923.35,N,12305.90,W,2023-06-06T22:54:50,A,*9A
+  $GPGLL,4924.50,N,12305.03,W,2023-06-06T22:54:51,A,*AB
+  $GPGLL,4925.65,N,12304.16,W,2023-06-06T22:54:52,A,*BC
+  $GPGLL,4926.80,N,12303.29,W,2023-06-06T22:54:53,A,*CD
+  $GPGLL,4927.95,N,12302.42,W,2023-06-06T22:54:54,A,*DE
+  $GPGLL,4929.10,N,12301.55,W,2023-06-06T22:54:55,A,*EF
+  $GPGLL,4930.25,N,12300.68,W,2023-06-06T22:54:56,A,*F0
   ...
 ```
 
@@ -129,11 +132,30 @@ The Ingestor Service should be able to parse the NMEA sentences in a better fitt
     'source': '$GPGLL', 
     'latitude': '5019.70N', 
     'longitude': '12223.27W', 
-    'utctime': '225539'
+    'utctime': '2023-06-06T22:54:56' 
   }
 ```
 
+With this format we can easily store the data in a database and also process it in a easy way.
+
 **3.3) Database storage of sentences**
+
+The Ingestor Service should be able to store the parsed sentences in a database. For this demonstration project we will use MongoDB as the database. MongoDB is a document-oriented database that stores data in flexible, JSON-like documents, meaning fields can vary from document to document and data structure can be changed over time. The document model maps to the objects in your application code, making data easy to work with. Ad hoc queries, indexing, and real time aggregation provide powerful ways to access and analyze your data. MongoDB is a distributed database at its core, so high availability, horizontal scaling, and geographic distribution are built in and easy to use.
+
+For performance reasons we setted up a `time-series` colletion, and so before saving, some transformation should be made, as follows:
+
+```
+{
+  'timestamp': '2023-06-06T22:58:03',
+  'metadata': {
+    'source': '$GPGLL', 
+    'latitude': '5019.70N', 
+    'longitude': '12223.27W', 
+    'utctime': '2023-06-06T22:54:56' 
+  }
+}
+```
+Now we can use all the power of MongoDB TimeSeries to query the data in a easy way.
 
 **3.4) Ingestor Service API**
 
