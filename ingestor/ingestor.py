@@ -2,85 +2,51 @@
 # This module is responsible for ingesting data from 
 # the data source and storing it in the database.
 
-import os
-import socket
-import threading
-import queue
-from dotenv import load_dotenv
-from pymongo.mongo_client import MongoClient
-from pynmeagps import NMEAReader
-
-# Load environment variables from .env file
-load_dotenv()
+import time
+import csv
+import random
 
 class Ingestor:
   def __init__(self):
-    self.vdr_host = os.getenv("VDR_HOST")
-    self.vdr_port = int(os.getenv("VDR_PORT"))
-    self.db_host = os.getenv("DB_HOST")
-    self.db_port = int(os.getenv("DB_PORT"))
-    self.db_name = os.getenv("DB_NAME")
-    self.db_collection = os.getenv("DB_COLLECTION")
-    self.mongo = None
-    self.collection = None
-    self.socket = None
-    self.ingest_thread = None
-    self.stop_event = threading.Event()
-    self.data_queue = queue.Queue()
+    self.vdr_data = []
+    self.poll_vdr_data()
 
-  def connect_to_vdr(self):
-    self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    self.socket.connect((self.host, self.port))
+  # Handles errors output
+  def error_handler(err):
+    # Print the error message to the console 
+    # but in production you would probably 
+    # want to log to a database instead
+    print(err)
 
-  def disconnect_from_vdr(self):
-    self.socket.close()
+  # Read nmea data from file and store in a list
+  # to simulate data from the VDR
+  def poll_vdr_data(self):
+    filename = "nmeadata.log"
+    with open(filename, "r") as file:
+      reader = csv.reader(file)
+      self.vdr_data = list(reader)
 
-  def parse_nmea_sentence(self, sentence):
-    ## to be implemented
-    pass
+  # Get a random line from the list of VDR data
+  def get_vdr_sentence(self):
+    index = random.randint(0, len(self.vdr_data) - 1)
+    data = {
+      "source": self.vdr_data[index][0],
+      "latitude": self.vdr_data[index][1] + self.vdr_data[index][2],
+      "longitude": self.vdr_data[index][3] + self.vdr_data[index][4],
+      "utctime": self.vdr_data[index][5]
+    }
+    return data
 
-  def store_reading(self, reading):
-    try:
-        self.collection.insert_one(reading)
-    except Exception as e:
-        print("Error storing reading in the database:", e)
-
-  def ingest_data(self):
-    while not self.stop_event.is_set():
-      try:
-        stream = open('nmeadata.log', 'rb')
-        nmr = NMEAReader(stream, nmeaonly=True)
-        for (raw_data, parsed_data) in nmr: print(parsed_data)
-        #sentence = self.socket.recv(1024).decode().strip()
-        #reading = self.parse_nmea_sentence(sentence)
-        #if reading:
-            #self.store_reading(reading)
-      except socket.error as e:
-        print("Error receiving data from VDR:", e)
-        #self.disconnect_from_vdr()
-        #self.connect_to_vdr()
-
-  def start_ingestor(self):
+  def start(self):
     print("Starting the ingestor...")
+    while True:
+      sentence = self.get_vdr_sentence()
+      if sentence: 
+        print(sentence)
+      time.sleep(10)  # Sleep for 10 second before collecting the next reading
 
-    #self.connect_to_vdr()
-    #self.socket.settimeout(10.0)  # Set a timeout for receiving data
-    #self.socket.sendall(b"VDR_CONNECTION_REQUEST")  # Send a connection request to the VDR
-
-    # Connect to the MongoDB server and select the database and collection
-    self.mongo = MongoClient(self.db_host, self.db_port)
-    db = self.mongo[self.db_name]
-    self.collection = db[self.db_collection]
-
-    self.ingest_thread = threading.Thread(target=self.ingest_data)
-    self.ingest_thread.start()
-
-  def stop_ingestor(self):
+  def stop(self):
     print("Stopping the ingestor...")
-    self.stop_event.set()
 
-    # Wait for the ingest thread to finish
-    self.ingest_thread.join()
-
-    #self.disconnect_from_vdr()
-    self.mongo.close()
+    # Close the connection to the MongoDB server
+    #self.mongo.close()

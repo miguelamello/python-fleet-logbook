@@ -1,21 +1,28 @@
+#!/usr/bin/env python3
 
 import signal
 import sys
 import os
-from data_ingestor import Ingestor
+import time
+from ingestor import Ingestor
 
 if __name__ == "__main__":
 
-  ingestor = Ingestor()
-  ingestor.start_ingestor()
-
-  # Register signal handlers for termination signals
+  # Define a signal handler to handle termination signals
   def signal_handler(signal, frame):
-    print("Termination signal received")
-    ingestor.stop_ingestor()
+    ingestor.stop()
     sys.exit(0)
 
+  # Register signal handlers for termination signals
   signal.signal(signal.SIGINT, signal_handler)  # SIGINT: Ctrl+C
-  signal.signal(signal.SIGTERM, signal_handler)  # SIGTERM: Termination signal
+  signal.signal(signal.SIGTERM, signal_handler)  # SIGTERM: OS Termination signal
+
+  try:
+    ingestor = Ingestor()
+    ingestor.start()
+
+  except KeyboardInterrupt:
+    # Handle a keyboard interrupt (Ctrl+C) gracefully
+    signal_handler(signal.SIGINT, None)
 
   
