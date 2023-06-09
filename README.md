@@ -94,7 +94,17 @@ These examples represent just a few of the many NMEA sentence formats available.
 
 ## 3) Ingestor Service - Implementation
 
-The Ingestor Service is implemented in Python 3.11 using the following libraries: `signal, socket, sys, time, threading, logging, dotenv, mongo_client, nmea`. 
+The Ingestor Service is implemented in Python 3.11 using the following libraries: 
+
+- signal 
+- socket 
+- sys, 
+- time
+- threading
+- logging
+- dotenv
+- mongo_client
+- nmea
 
 The service is composed of the following main tasks taht should be implemented:
 
@@ -170,6 +180,12 @@ The Disgestor Service will is implemented as a GraphQL API using the following l
 
 
 We choosed to make the Disgestor Service a GraphQL API because GraphQL is a query language for APIs and a runtime for fulfilling those queries with existing data. GraphQL provides a complete and understandable description of the data as an API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
+
+The service is composed of the following main tasks taht should be implemented:
+
+**4.1) GraphQL Schema**
+
+The GraphQL schema is the core of any GraphQL server implementation. It describes the functionality available to the client applications that connect to it. The schema defines the available API operations and their parameters and return types. It also defines the relationships between the different data types exposed by the API.
 
 ## 5) Dashboard Service - Implementation
 
