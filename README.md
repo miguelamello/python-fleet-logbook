@@ -163,13 +163,11 @@ Now we can use all the power of MongoDB TimeSeries to query the data in a easy w
 
 The Disgestor Service will is implemented as a GraphQL API using the following libraries: 
 
-```
-  Flask - Flask is a lightweight web application framework, designed to make getting 
+  - Flask, which is a lightweight web application framework, designed to make getting 
   started quick and easy, with the ability to scale up to complex applications.
 
-  Graphene - Graphene is a Python library for building GraphQL schemas/types fast and easily.
+  - Graphene, which is a Python library for building GraphQL schemas/types fast and easily.
 
-```
 
 We choosed to make the Disgestor Service a GraphQL API because GraphQL is a query language for APIs and a runtime for fulfilling those queries with existing data. GraphQL provides a complete and understandable description of the data as an API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
