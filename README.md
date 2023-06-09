@@ -176,8 +176,8 @@ The Disgestor Service will is implemented as a GraphQL API using the following l
   - Flask, which is a lightweight web application framework, designed to make getting 
   started quick and easy, with the ability to scale up to complex applications.
 
-  - Graphene, which is a Python library for building GraphQL schemas/types fast and easily.
-
+  - Ariadne, which is a Python library for implementing GraphQL servers 
+  using schema-first approach.
 
 We choosed to make the Disgestor Service a GraphQL API because GraphQL is a query language for APIs and a runtime for fulfilling those queries with existing data. GraphQL provides a complete and understandable description of the data as an API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.
 
