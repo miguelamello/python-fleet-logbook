@@ -1,10 +1,12 @@
-# Python Ship Logbook
+# Python Fleet Logbook
 
-This is an implementation of a Ship Logbook Service responsible for receiving, collecting, processing and presenting data from "VDR - Vessel Data Recorders" and making it available for further analysis, storage and searchability. The primary goal of a Ship Logbook Service is maintaining a precise log of essential ship instruments readings such as vessel position, speed, heading, engine parameters, rudder movements, communications, alarms and many others. The secondary goal is to provide a way to access this data in a convenient way. For such a task the service provides a "Ingestor Service" to receive data from the VRD and a "Dashboard Service" to provide access to the data though a dashboard. The services also provides a "Disgestor Service" to process the data and make it available for further analysis,  storage or disposal through a API so other services can access it.
+This is an implementation of a Fleet Logbook Service responsible for receiving, collecting, processing and presenting data from "VDR - Vessel Data Recorders" and making it available for further analysis, storage and searchability. The primary goal of a Fleet Logbook Service is maintaining a precise log of essential vessel instruments readings such as vessel position, speed, heading, engine parameters, rudder movements, communications, alarms and many others. The secondary goal is to provide a way to access this data in a convenient way. For such a task the service provides a "Ingestor Service" to receive data from the VRD and a "Dashboard Service" to provide access to the data though a dashboard. The services also provides a "Disgestor Service" to process the data and make it available for further analysis,  storage or disposal through a API so other services can access it.
+
+Note: In this implementation it's been target a fleet of ships, but the service can be used for any kind of vehicle, as long as it has a VDR - Vessel Data Recorder or similar device.
 
 ## 1) Architecture
 
-The Ship Logbook Service is composed of three main components:
+The Fleet Logbook Service is composed of three main components:
 
 - Ingestor Service
 - Dashboard Service

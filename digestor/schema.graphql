@@ -1,4 +1,16 @@
+type Reading {
+  _id: ID!
+  timestamp: String!
+  metadata: Device!
+}
+
+type Device {
+  source: String!
+  latitude: String!
+  longitude: String!
+  utctime: String!
+}
 
 type Query {
-  hello(name: String!): String!
+  getReadings: [Reading]
 }

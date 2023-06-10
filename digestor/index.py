@@ -3,12 +3,12 @@
 from ariadne import QueryType, graphql_sync, make_executable_schema, load_schema_from_path
 from ariadne.explorer import ExplorerGraphiQL
 from flask import Flask, jsonify, request
-from resolvers import hello_resolver
+from resolvers import reading_resolver
 
 type_defs = load_schema_from_path("schema.graphql")
 
 query = QueryType()
-query.set_field("hello", hello_resolver.resolve_hello)
+query.set_field("getReadings", reading_resolver.get_readings)
 
 schema = make_executable_schema(type_defs, [query])
 
@@ -47,4 +47,5 @@ def graphql_server():
 
 if __name__ == "__main__":
   app.run(debug=True)
+  
 
