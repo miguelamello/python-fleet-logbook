@@ -2,8 +2,6 @@
 
 import signal
 import sys
-import os
-import time
 from ingestor import Ingestor
 
 if __name__ == "__main__":
