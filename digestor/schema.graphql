@@ -9,8 +9,54 @@ type Device {
   latitude: String!
   longitude: String!
   utctime: String!
+  serialNumber: String!
+}
+
+type Vessel {
+  _id: ID!
+  name: String!
+  type: VesselType!
+  capacity: Int
+  owner: String
+  registrationNumber: String
+  manufacturingDate: String
+  length: Float
+  width: Float
+  height: Float
+  weight: Float
+  status: VesselStatus!
+  createdAt: String!
+  updatedAt: String!
+}
+
+enum VesselType {
+  CARGO
+  PASSENGER
+  FISHING
+  CRUISE
+  TANKER
+  TUGBOAT
+  DRILLER 
+  ORTHER
+}
+
+enum VesselStatus {
+  STANDBY
+  MAINTENANCE
+  DECOMMISSIONED
+  DOCKED
+  OPERATING
 }
 
 type Query {
   getReadings: [Reading]
+  getReadingsByTimeRange(start: timespamp, end: timestamp): [Reading]
+  getReadingsById(id: ID!): [Reading]
+  getReadingsByDevice(serial: String!): [Reading]
+  getReadingsByDeviceAndTimeRange(serial: String!, start: timespamp, end: timestamp): [Reading]
+  getVessels: [Vessel]
+  getVesselsByType(type: VesselType!): [Vessel]
+  getVesselsByStatus(status: VesselStatus!): [Vessel]
+  getVesselById(id: ID!): Vessel
+  getVesselByName(name: String!): Vessel
 }

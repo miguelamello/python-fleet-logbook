@@ -187,7 +187,151 @@ The service is composed of the following main tasks taht should be implemented:
 
 **4.1) GraphQL Schema**
 
-The GraphQL schema is the core of any GraphQL server implementation. It describes the functionality available to the client applications that connect to it. The schema defines the available API operations and their parameters and return types. It also defines the relationships between the different data types exposed by the API.
+The GraphQL schema is the core of any GraphQL server implementation. It describes the functionality available to the client applications that connect to it. The schema defines the available API operations and their parameters and return types. It also defines the relationships between the different data types exposed by the API. For this project we will use the following schema:
+
+```
+  # This is a GraphQL schema file
+
+  # This type defines the readings sent by the VDRs
+  type Reading {
+    _id: ID!
+    timestamp: String!
+    metadata: Device!
+  }
+
+  # This type defines the devices that sent the readings
+  type Device {
+    source: String!
+    latitude: String!
+    longitude: String!
+    utctime: String!
+  }
+
+  # This type defines the vessels that the devices are installed
+  type Vessel {
+    _id: ID!
+    name: String!
+    type: VesselType!
+    capacity: Int
+    owner: String
+    registrationNumber: String
+    manufacturingDate: String
+    length: Float
+    width: Float
+    height: Float
+    weight: Float
+    status: VesselStatus!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  # This type defines the vessel types
+  enum VesselType {
+    CARGO
+    PASSENGER
+    FISHING
+    CRUISE
+    TANKER
+    TUGBOAT
+    DRILLER 
+    ORTHER
+  }
+
+  # This type defines the vessel status
+  enum VesselStatus {
+    STANDBY
+    MAINTENANCE
+    DECOMMISSIONED
+    DOCKED
+    OPERATING
+  }
+
+  # This type defines the queries that can be made to the API
+  type Query {
+    getReadings: [Reading]
+    getReadingsByTimeRange(start: timespamp, end: timestamp): [Reading]
+    getReadingsById(id: ID!): [Reading]
+    getReadingsByDevice(serial: String!): [Reading]
+    getReadingsByDeviceAndTimeRange(serial: String!, start: timespamp, end: timestamp): [Reading]
+    getVessels: [Vessel]
+    getVesselsByType(type: VesselType!): [Vessel]
+    getVesselsByStatus(status: VesselStatus!): [Vessel]
+    getVesselById(id: ID!): Vessel
+    getVesselByName(name: String!): Vessel
+  }
+```
+
+**4.2) Queries**
+
+The Disgestor Service should be able to answer the following queries:
+
+ - getReadings
+ - getReadingsByTimeRange
+ - getReadingsById
+ - getReadingsByDevice
+ - getReadingsByDeviceAndTimeRange
+ - getVessels
+ - getVesselsByType
+ - getVesselsByStatus
+ - getVesselById
+ - getVesselByName
+
+ **4.2.1) getReadings**
+Return all readings from all devices limiting in 1000 newest records.
+
+Query example:
+
+```
+  query {
+    getReadings {
+      _id
+      timestamp
+      metadata {
+        source
+        latitude
+        longitude
+        utctime
+      }
+    }
+  }
+```
+
+Response example:
+
+```
+  {
+    "data": {
+      "getReadings": [
+        {
+          "_id": "6480d862b189fec83374c22f",
+          "timestamp": "2023-06-07 19:20:02.256000", 
+          "metadata": {
+            "latitude": "5008.20N",
+            "longitude": "12231.97W",
+            "source": "$GPGLL",
+            "utctime": "2023-06-06T22:55:29", 
+            "serialNumber": "9876543210"
+          }
+        },
+        {
+          "_id": "6480d86cb189fec83374c230",
+          "timestamp": "2023-06-07 19:20:12.259000", 
+          "metadata": {
+            "latitude": "4950.95N",
+            "longitude": "12245.02W",
+            "source": "$GPGLL",
+            "utctime": "2023-06-06T22:55:14",
+            "serialNumber": "4321098765"
+          }
+        },
+        ...
+      ]
+    }
+  }
+```
+
+ **4.2.2) getReadingsByTimeRange**
+
 
 ## 5) Dashboard Service - Implementation
 
