@@ -276,7 +276,7 @@ The Disgestor Service should be able to answer the following queries:
  - getVesselById
  - getVesselByName
 
- **4.2.1) getReadings**
+ **4.2.1) getReadings**<br>
 Return all readings from all devices limiting in 1000 newest records.
 
 Query example:
@@ -330,7 +330,7 @@ Response example:
   }
 ```
 
- **4.2.2) getReadingsByTimeRange**
+ **4.2.2) getReadingsByTimeRange**<br>
 Return all readings from all devices within the time range, limiting in 1000 newest records.
 
 Query example:
