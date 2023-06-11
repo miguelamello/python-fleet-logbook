@@ -331,7 +331,68 @@ Response example:
 ```
 
  **4.2.2) getReadingsByTimeRange**
+Return all readings from all devices within the time range, limiting in 1000 newest records.
 
+Query example:
+
+```
+  query {
+    getReadingsByTimeRange(
+      start: "2023-06-07 19:20:02.256000"
+      end: "2023-06-07 19:23:45.489000"
+    ) {
+      _id
+      timestamp
+      metadata {
+        source
+        longitude
+        latitude
+        utctime
+      }
+    }
+  }
+```
+
+Response example:
+
+```
+  {
+    "data": {
+      "getReadingsByTimeRange": [
+        {
+          "_id": "6480d862b189fec83374c22f",
+          "metadata": {
+            "latitude": "5008.20N",
+            "longitude": "12231.97W",
+            "source": "$GPGLL",
+            "utctime": "2023-06-06T22:55:29"
+          },
+          "timestamp": "2023-06-07 19:20:02.256000"
+        },
+        {
+          "_id": "6480d86cb189fec83374c230",
+          "metadata": {
+            "latitude": "4950.95N",
+            "longitude": "12245.02W",
+            "source": "$GPGLL",
+            "utctime": "2023-06-06T22:55:14"
+          },
+          "timestamp": "2023-06-07 19:20:12.259000"
+        },
+        {
+          "_id": "6480d941f028896ff7c6d17c",
+          "metadata": {
+            "latitude": "5025.45N",
+            "longitude": "12218.92W",
+            "source": "$GPGLL",
+            "utctime": "2023-06-06T22:55:44"
+          },
+          "timestamp": "2023-06-07 19:23:45.489000"
+        }
+      ]
+    }
+  }
+```
 
 ## 5) Dashboard Service - Implementation
 

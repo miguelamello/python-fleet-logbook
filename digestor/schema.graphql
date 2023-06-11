@@ -50,10 +50,10 @@ enum VesselStatus {
 
 type Query {
   getReadings: [Reading]
-  getReadingsByTimeRange(start: timespamp, end: timestamp): [Reading]
+  getReadingsByTimeRange(start: String, end: String): [Reading]
   getReadingsById(id: ID!): [Reading]
   getReadingsByDevice(serial: String!): [Reading]
-  getReadingsByDeviceAndTimeRange(serial: String!, start: timespamp, end: timestamp): [Reading]
+  getReadingsByDeviceAndTimeRange(serial: String!, start: String, end: String): [Reading]
   getVessels: [Vessel]
   getVesselsByType(type: VesselType!): [Vessel]
   getVesselsByStatus(status: VesselStatus!): [Vessel]

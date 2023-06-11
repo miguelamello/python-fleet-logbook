@@ -6,7 +6,7 @@ class Logger:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.logger.setLevel(logging.DEBUG)
-        file_handler = logging.FileHandler('ingestor.log')
+        file_handler = logging.FileHandler('digestor.log')
         self.logger.addHandler(file_handler)
 
     # Handles errors output

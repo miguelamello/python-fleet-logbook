@@ -1,0 +1,44 @@
+Traceback (most recent call last):
+  File "/home/miguel/Challenges/ship-logbook/digestor/mongo.py", line 49, in find_by_time_range
+    start_datetime = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2023-06-07 19:20:02' does not match format '%Y-%m-%d %H:%M:%S.%f'
+
+Traceback (most recent call last):
+  File "/home/miguel/Challenges/ship-logbook/digestor/mongo.py", line 49, in find_by_time_range
+    start_datetime = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2023-06-07 19:20:02' does not match format '%Y-%m-%d %H:%M:%S.%f'
+
+Traceback (most recent call last):
+  File "/home/miguel/Challenges/ship-logbook/digestor/mongo.py", line 49, in find_by_time_range
+    start_datetime = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2023-06-07 19:20:02' does not match format '%Y-%m-%d %H:%M:%S.%f'
+
+Traceback (most recent call last):
+  File "/home/miguel/Challenges/ship-logbook/digestor/mongo.py", line 49, in find_by_time_range
+    start_datetime = datetime.strptime(start, "%Y-%m-%d %H:%M:%S.%f")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 568, in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.11/_strptime.py", line 349, in _strptime
+    raise ValueError("time data %r does not match format %r" %
+ValueError: time data '2023-06-07 19:20:02' does not match format '%Y-%m-%d %H:%M:%S.%f'
+

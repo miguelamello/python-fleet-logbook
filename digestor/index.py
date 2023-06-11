@@ -9,6 +9,7 @@ type_defs = load_schema_from_path("schema.graphql")
 
 query = QueryType()
 query.set_field("getReadings", reading_resolver.get_readings)
+query.set_field("getReadingsByTimeRange", reading_resolver.get_readings_by_time_range)
 
 schema = make_executable_schema(type_defs, [query])
 
